@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "gh-1-21-1",
+  "version": "${version}",
+  "name": "gh-1-21-1",
+  "description": "Changes to horse movement, specifically inspired by Battlefeild 1 horse mechanics",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/gh-1-21-1/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "mods.samoclutch.gh1211.client.Gh1211DataGenerator"
+    ],
+    "client": [
+      "mods.samoclutch.gh1211.client.Gh1211Client"
+    ],
+    "main": [
+      "mods.samoclutch.gh1211.Gh1211"
+    ]
+  },
+  "mixins": [
+    "gh-1-21-1.mixins.json",
+    {
+      "config": "gh-1-21-1.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
