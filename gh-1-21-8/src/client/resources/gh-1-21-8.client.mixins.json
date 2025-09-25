@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mods.samoclutch.gh1218.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ClientPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

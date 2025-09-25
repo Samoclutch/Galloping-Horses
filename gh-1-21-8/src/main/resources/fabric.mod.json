@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "gh-1-21-1",
+  "id": "gh-1-21-8",
   "version": "${version}",
-  "name": "gh-1-21-1",
-  "description": "Changes to horse movement, specifically inspired by Battlefield 1 horse mechanics",
+  "name": "gh-1-21-8",
+  "description": "Changes to horse movement, specifically inspired by Battlefeild 1 horse mechanics",
   "authors": [],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/gh-1-21-1/icon.png",
+  "icon": "assets/gh-1-21-8/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "mods.samoclutch.gh1211.client.Gh1211DataGenerator"
+      "mods.samoclutch.gh1218.client.Gh1218DataGenerator"
     ],
     "client": [
-      "mods.samoclutch.gh1211.client.Gh1211Client"
+      "mods.samoclutch.gh1218.client.Gh1218Client"
     ],
     "main": [
-      "mods.samoclutch.gh1211.Gh1211"
+      "mods.samoclutch.gh1218.Gh1218"
     ]
   },
   "mixins": [
-    "gh-1-21-1.mixins.json",
+    "gh-1-21-8.mixins.json",
     {
-      "config": "gh-1-21-1.client.mixins.json",
+      "config": "gh-1-21-8.client.mixins.json",
       "environment": "client"
     }
   ],
