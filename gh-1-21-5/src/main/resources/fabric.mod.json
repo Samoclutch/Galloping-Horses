@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "gh-1-21-5",
+  "version": "${version}",
+  "name": "Galloping Horses",
+  "description": "Changes to horse movement, specifically inspired by Battlefield 1 horse mechanics",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/gh-1-21-5/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "mods.samoclutch.gh1215.client.Gh1215DataGenerator"
+    ],
+    "client": [
+      "mods.samoclutch.gh1215.client.Gh1215Client"
+    ],
+    "main": [
+      "mods.samoclutch.gh1215.Gh1215"
+    ]
+  },
+  "mixins": [
+    "gh-1-21-5.mixins.json",
+    {
+      "config": "gh-1-21-5.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
