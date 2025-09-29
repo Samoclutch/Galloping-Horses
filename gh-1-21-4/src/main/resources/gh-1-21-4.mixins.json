@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mods.samoclutch.gh1214.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "HorseEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
