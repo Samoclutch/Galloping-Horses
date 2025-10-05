@@ -12,7 +12,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.joml.Math;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -54,68 +53,81 @@ public abstract class HorseEntityMixin extends AnimalEntity {
     // {A, NO, D }
     // {AW, W, DW}
     @Unique
-    private static float[][] angleLookup = {{135, 180, 225}, {90, -1, 270}, {45, 0, 315}};
+    private static final float[][] angleLookup = {{135, 180, 225}, {90, -1, 270}, {45, 0, 315}};
 
     protected HorseEntityMixin(EntityType<? extends AbstractHorseEntity> entityType, World world) {super(entityType, world);}
 
-    // overriding from abstractHorse
     @Inject(method = "getControlledMovementInput", at = @At("HEAD"), cancellable = true)
     protected void getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput, CallbackInfoReturnable<Vec3d> cir) {
         // sideways & forwardSpeed : -1, 0, 1 (or less in certain conditions, player button inputs)
-//        System.out.println("<" + speed + ", " + angularVelocity + "> : <" + controllingPlayer.forwardSpeed + ", " + controllingPlayer.sidewaysSpeed + ">");
 
-        // change running state (between plotting, trotting, and galloping),
-        // immediately set speed to min speed for that state
+        // all this, client only
+
         if (this.getWorld().isClient) {
-            if (((HorseRidingClientPlayer)controllingPlayer).gallopingHorses$getGallopInput() && runningState != 2) {
+            // change running state (between plotting, trotting, and galloping),
+            // immediately set speed to min speed for that state
+
+            if (((HorseRidingClientPlayer) controllingPlayer).gallopingHorses$getGallopInput()
+                    && runningState != 2
+                    && !((HorseRidingClientPlayer) controllingPlayer).getBrakeInput()) {
                 runningState++;
                 this.speed = minSpeeds[runningState];
             }
-        }
 
-        // a movement key is pressed and if speed is within expected bounds apply movement (any input increase speed)
-        if((Math.abs(controllingPlayer.sidewaysSpeed) > 0.01 || Math.abs(controllingPlayer.forwardSpeed) > 0.01)) {
-            this.speed = Math.min(speed + acceleration, maxSpeeds[runningState]);
-        }
-        // decay speed
-        else {this.speed = Math.max(this.speed - acceleration/2, 0);}
-        if (this.horizontalCollision) {this.speed = 0;}
-
-        // find desire angle and difference from current angle
-        float angleMod = angleLookup[MathHelper.sign(controllingPlayer.forwardSpeed) + 1][MathHelper.sign(controllingPlayer.sidewaysSpeed) + 1];
-        float angleDifference;
-        float angularAcceleration = baseAngularAcceleration;
-        if (angleMod != -1) {
-            angleDifference = MathHelper.subtractAngles(this.getYaw(), controllingPlayer.getYaw() + angleMod);
-            if (MathHelper.abs(angleDifference) > 170) {
-                // near complete turn around, start buck, buff turn rate
-                speed = Math.max(speed - 10*acceleration, 0);
-                angularAcceleration *= 2;
+            // a movement key is pressed and if speed is within expected bounds apply movement (any input increase speed)
+            if ((Math.abs(controllingPlayer.sidewaysSpeed) > 0.01 || Math.abs(controllingPlayer.forwardSpeed) > 0.01)
+                    && !((HorseRidingClientPlayer) controllingPlayer).getBrakeInput()) {
+                this.speed = Math.min(speed + acceleration, maxSpeeds[runningState]);
             }
-        }
-        else {angleDifference = 0;}
 
-        // use angle difference to find desired angular velocity, then accelerate towards it (given enough difference)
-        if (Math.abs(angleDifference) > 1) {
+            // decay speed
+            else {
+                this.speed = Math.max(
+                        this.speed - acceleration / (((HorseRidingClientPlayer) controllingPlayer).getBrakeInput()
+                                ? .5 : 2), 0);
+            }
+            if (this.horizontalCollision) {
+                this.speed = 0;
+            }
+
+            // find desire angle and difference from current angle
+            float angleMod = angleLookup[MathHelper.sign(controllingPlayer.forwardSpeed) + 1][MathHelper.sign(controllingPlayer.sidewaysSpeed) + 1];
+            float angleDifference;
+            float angularAcceleration = baseAngularAcceleration;
+            if (angleMod != -1) {
+                angleDifference = MathHelper.subtractAngles(this.getYaw(), controllingPlayer.getYaw() + angleMod);
+                if (MathHelper.abs(angleDifference) > 170) {
+                    // near complete turn around, start buck, buff turn rate
+                    speed = Math.max(speed - 10 * acceleration, 0);
+                    angularAcceleration *= 2;
+                }
+            } else {
+                angleDifference = 0;
+            }
+
+            // use angle difference to find desired angular velocity, then accelerate towards it (given enough difference)
+            if (Math.abs(angleDifference) > 1) {
 //        System.out.println("Angle Delta: " + angleDifference);
-            int direction = MathHelper.sign(angleDifference);
-            // easing function in here
-            float targetVelocity = MathHelper.clamp(
-                    angleDifference * angleDifference * direction * (angularVelocityMax / (slowDownAngle * slowDownAngle)),
-                    -angularVelocityMax, angularVelocityMax);
-            angularVelocity += angularAcceleration * MathHelper.sign(targetVelocity - angularVelocity);
-        }
-        else {angularVelocity = 0;}
+                int direction = MathHelper.sign(angleDifference);
+                // easing function in here
+                float targetVelocity = MathHelper.clamp(
+                        angleDifference * angleDifference * direction * (angularVelocityMax / (slowDownAngle * slowDownAngle)),
+                        -angularVelocityMax, angularVelocityMax);
+                angularVelocity += angularAcceleration * MathHelper.sign(targetVelocity - angularVelocity);
+            } else {
+                angularVelocity = 0;
+            }
 //        System.out.println("Angular Velocity: " + angularVelocity);
 
-        // if speed falls below state minimum, reduce state
-        if (this.speed < minSpeeds[runningState] && runningState != 0) {
-            runningState--;
-            this.speed = maxSpeeds[runningState];
-        }
+            // if speed falls below state minimum, reduce state
+            if (this.speed < minSpeeds[runningState] && runningState != 0) {
+                runningState--;
+                this.speed = maxSpeeds[runningState];
+            }
 
-        // horses can only move forward and back
-        cir.setReturnValue(new Vec3d(0, 0, this.speed));
+            // horses can only move forward and back
+            cir.setReturnValue(new Vec3d(0, 0, this.speed));
+        }
     }
 
     @Inject(method = "getControlledRotation", at = @At("HEAD"), cancellable = true)

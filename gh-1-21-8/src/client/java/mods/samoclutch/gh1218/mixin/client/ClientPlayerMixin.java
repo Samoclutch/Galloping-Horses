@@ -13,16 +13,56 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerMixin extends AbstractClientPlayerEntity implements HorseRidingClientPlayer {
+    @Unique
+    boolean horseBrake;
+
+    @Unique
+    boolean zoomInput;
+
+    @Unique
+    int cameraPositionInput;
+
     @Final
     @Shadow
     protected MinecraftClient client;
 
     public ClientPlayerMixin(ClientWorld world, GameProfile profile) {
         super(world, profile);
+        horseBrake = false;
     }
 
     @Unique
     public boolean gallopingHorses$getGallopInput() {
         return this.client.options.sprintKey.wasPressed();
+    }
+
+    @Override
+    public boolean getBrakeInput() {
+        return horseBrake;
+    }
+
+    @Override
+    public void setBrakeInput(boolean brake) {
+        horseBrake = brake;
+    }
+
+    @Override
+    public boolean getZoomInput() {
+        return zoomInput;
+    }
+
+    @Override
+    public void setZoomInput(boolean zoom) {
+        zoomInput = zoom;
+    }
+
+    @Override
+    public int getCameraPositionInput() {
+        return cameraPositionInput;
+    }
+
+    @Override
+    public void setCameraPositionInput(int position) {
+        cameraPositionInput = position;
     }
 }
