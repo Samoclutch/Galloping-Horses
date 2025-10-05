@@ -22,7 +22,7 @@ public class Gh1218Client implements ClientModInitializer {
         horseBrake = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.gallopinghorses.brake",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_N,
+                GLFW.GLFW_KEY_Z,
                 "category.gallopinghorses.gallopinghorses"
         ));
 

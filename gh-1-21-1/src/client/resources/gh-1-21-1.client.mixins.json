@@ -4,7 +4,9 @@
   "package": "mods.samoclutch.gh1211.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ClientPlayerMixin"
+    "CameraMixin",
+    "ClientPlayerMixin",
+    "CrossHairMixin"
   ],
   "injectors": {
     "defaultRequire": 1
