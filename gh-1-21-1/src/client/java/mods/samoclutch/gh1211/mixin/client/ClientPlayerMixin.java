@@ -16,12 +16,6 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Hor
     @Unique
     boolean horseBrake;
 
-    @Unique
-    boolean zoomInput;
-
-    @Unique
-    int cameraPositionInput;
-
     @Final
     @Shadow
     protected MinecraftClient client;
@@ -44,25 +38,5 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Hor
     @Override
     public void setBrakeInput(boolean brake) {
         horseBrake = brake;
-    }
-
-    @Override
-    public boolean getZoomInput() {
-        return zoomInput;
-    }
-
-    @Override
-    public void setZoomInput(boolean zoom) {
-        zoomInput = zoom;
-    }
-
-    @Override
-    public int getCameraPositionInput() {
-        return cameraPositionInput;
-    }
-
-    @Override
-    public void setCameraPositionInput(int position) {
-        cameraPositionInput = position;
     }
 }

@@ -12,10 +12,10 @@ public class Gh1211Client implements ClientModInitializer {
 
     private static KeyBinding horseBrake;
     private static KeyBinding horseZoom;
-    private static boolean zoomSticky = false;
+    public static boolean zoomSticky = false;
     private static KeyBinding cameraPosition;
     // 0 - left, [1 4] - center, 2 - right
-    private int overShoulderPosition = 0;
+    public static int overShoulderPosition = 0;
 
     @Override
     public void onInitializeClient() {
@@ -40,6 +40,8 @@ public class Gh1211Client implements ClientModInitializer {
                 "category.gallopinghorses.gallopinghorses"
         ));
 
+        GhConfig.init();
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (horseZoom.wasPressed())
                 zoomSticky = !zoomSticky;
@@ -49,8 +51,6 @@ public class Gh1211Client implements ClientModInitializer {
             }
             if(client.player != null) {
                 ((HorseRidingClientPlayer) (client.player)).setBrakeInput(horseBrake.isPressed());
-                ((HorseRidingClientPlayer) (client.player)).setZoomInput(zoomSticky);
-                ((HorseRidingClientPlayer) (client.player)).setCameraPositionInput(overShoulderPosition);
             }
         });
     }

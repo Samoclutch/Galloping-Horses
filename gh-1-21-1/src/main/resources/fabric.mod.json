@@ -2,10 +2,15 @@
   "schemaVersion": 1,
   "id": "gh-1-21-1",
   "version": "${version}",
-  "name": "gh-1-21-1",
+  "name": "Galloping Horses",
   "description": "Changes to horse movement, specifically inspired by Battlefield 1 horse mechanics",
-  "authors": [],
-  "contact": {},
+  "authors": ["Samoclutch"],
+  "contact": {
+    "sources": "https://github.com/Samoclutch/Galloping-Horses",
+    "issues": "https://github.com/Samoclutch/Galloping-Horses/issues",
+    "email": "mailto:samoclutch@gmail.com?subject=Galloping%20Horses",
+    "homepage": "https://modrinth.com/mod/galloping-horses"
+  },
   "license": "MIT",
   "icon": "assets/gh-1-21-1/icon.png",
   "environment": "*",
@@ -18,6 +23,9 @@
     ],
     "main": [
       "mods.samoclutch.gh1211.Gh1211"
+    ],
+    "modmenu": [
+      "mods.samoclutch.gh1211.client.GhConfig"
     ]
   },
   "mixins": [

@@ -2,5 +2,21 @@
   "key.gallopinghorses.brake" : "Brake",
   "category.gallopinghorses.gallopinghorses" : "Galloping Horses",
   "key.gallopinghorses.zoom" : "Toggle Zoom",
-  "key.gallopinghorses.camera" : "Cycle Camera Position"
+  "key.gallopinghorses.camera" : "Cycle Camera Position",
+  "config.gallopinghorses.title" : "Galloping Horses Configuration",
+  "category.gallopinghorses.camera" : "Camera",
+  "config.gallopinghorses.loft" : "Height Over Shoulder",
+  "config.gallopinghorses.loftzoomed" : "Height Over Shoulder (Zoomed)",
+  "config.gallopinghorses.throw" : "Distance Left or Right",
+  "config.gallopinghorses.throwzoomed" : "Distance Left or Right (Zoomed)",
+  "config.gallopinghorses.zoom" : "Zoom-In Strength",
+  "config.gallopinghorses.poa" : "Distance to Focus Point",
+  "config.gallopinghorses.poazoomed" : "Distance to Focus Point (Zoomed)",
+  "tooltip.gallopinghorses.loft" : "Scaling factor for the\namount the camera is raised\nwhile un-zoomed",
+  "tooltip.gallopinghorses.loftzoomed" : "Scaling factor for the\namount the camera is raised\nwhile zoomed",
+  "tooltip.gallopinghorses.throw" : "Scaling factor for the\namount the camera is moved\nto the side while un-zoomed",
+  "tooltip.gallopinghorses.throwzoomed" : "Scaling factor for the\namount the camera is moved\nto the side while un-zoomed",
+  "tooltip.gallopinghorses.zoom" : "How far in the camera is\nbrought in for the zoom effect",
+  "tooltip.gallopinghorses.poa" : "In over-the-shoulder view,\nthe camera is rotated to\nface a point this many blocks\nin front of the player,\nwhile un-zoomed",
+  "tooltip.gallopinghorses.poazoomed" : "In over-the-shoulder view,\nthe camera is rotated to\nface a point this many blocks\nin front of the player,\nwhile zoomed"
 }
