@@ -1,7 +1,6 @@
-package mods.samoclutch.gh1218.mixin.client;
+package mods.samoclutch.gh12110.mixin.client;
 
-import mods.samoclutch.gh1218.HorseRidingClientPlayer;
-import mods.samoclutch.gh1218.client.Gh1218Client;
+import mods.samoclutch.gh12110.client.Gh12110Client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -27,7 +26,8 @@ public abstract class CrossHairMixin {
         if (this.client.player != null && this.client.player.getVehicle() instanceof AbstractHorseEntity
                 && !this.client.options.getPerspective().isFirstPerson()
                 && !this.client.options.getPerspective().isFrontView()
-                && !(Gh1218Client.overShoulderPosition == 3)) {
+                && !this.client.options.hudHidden
+                && !(Gh12110Client.overShoulderPosition == 3)) {
             Perspective perspective = this.client.options.getPerspective();
             this.client.options.setPerspective(Perspective.FIRST_PERSON);
             this.renderCrosshair(context, tickCounter);

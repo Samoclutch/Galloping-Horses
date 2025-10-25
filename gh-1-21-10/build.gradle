@@ -14,7 +14,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        "gh-1-21-8" {
+        "gh-1-21-10" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }

@@ -1,14 +1,15 @@
-package mods.samoclutch.gh1218.client;
+package mods.samoclutch.gh12110.client;
 
-import mods.samoclutch.gh1218.HorseRidingClientPlayer;
+import mods.samoclutch.gh12110.HorseRidingClientPlayer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
-public class Gh1218Client implements ClientModInitializer {
+public class Gh12110Client implements ClientModInitializer {
 
     private static KeyBinding horseBrake;
     private static KeyBinding horseZoom;
@@ -17,27 +18,29 @@ public class Gh1218Client implements ClientModInitializer {
     // 0 - left, [1 4] - center, 2 - right
     public static int overShoulderPosition = 0;
 
+
     @Override
     public void onInitializeClient() {
+        KeyBinding.Category horsePlace = new KeyBinding.Category(Identifier.tryParse("category.gallopinghorses.keybinds"));
         horseBrake = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.gallopinghorses.brake",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_Z,
-                "category.gallopinghorses.gallopinghorses"
+                horsePlace
         ));
 
         horseZoom = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.gallopinghorses.zoom",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
-                "category.gallopinghorses.gallopinghorses"
+                horsePlace
         ));
 
         cameraPosition = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.gallopinghorses.camera",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_GRAVE_ACCENT,
-                "category.gallopinghorses.gallopinghorses"
+                horsePlace
         ));
 
         GhConfig.init();

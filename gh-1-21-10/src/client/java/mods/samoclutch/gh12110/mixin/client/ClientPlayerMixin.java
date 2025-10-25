@@ -1,13 +1,13 @@
-package mods.samoclutch.gh1218.mixin.client;
+package mods.samoclutch.gh12110.mixin.client;
 
 import com.mojang.authlib.GameProfile;
-import mods.samoclutch.gh1218.HorseRidingClientPlayer;
+import mods.samoclutch.gh12110.HorseRidingClientPlayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import net.minecraft.client.network.ClientPlayerEntity;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -15,12 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 public class ClientPlayerMixin extends AbstractClientPlayerEntity implements HorseRidingClientPlayer {
     @Unique
     boolean horseBrake;
-
-    @Unique
-    boolean zoomInput;
-
-    @Unique
-    int cameraPositionInput;
 
     @Final
     @Shadow
@@ -45,10 +39,4 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Hor
     public void setBrakeInput(boolean brake) {
         horseBrake = brake;
     }
-
-    @Override
-    public int getCameraPositionInput() {
-        return cameraPositionInput;
-    }
-
 }

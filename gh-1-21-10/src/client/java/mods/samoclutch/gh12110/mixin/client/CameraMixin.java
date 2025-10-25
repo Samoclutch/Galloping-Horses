@@ -1,9 +1,7 @@
-package mods.samoclutch.gh1218.mixin.client;
+package mods.samoclutch.gh12110.mixin.client;
 
-import mods.samoclutch.gh1218.HorseRidingClientPlayer;
-import mods.samoclutch.gh1218.client.Gh1218Client;
-import mods.samoclutch.gh1218.client.GhConfig;
-import net.minecraft.client.network.ClientPlayerEntity;
+import mods.samoclutch.gh12110.client.Gh12110Client;
+import mods.samoclutch.gh12110.client.GhConfig;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -16,13 +14,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.RaycastContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin {
+
     @Shadow
     private BlockView area;
 
@@ -90,7 +88,7 @@ public abstract class CameraMixin {
             float horseThrow;
             float horseLoft;
 
-            if (Gh1218Client.zoomSticky) {
+            if (Gh12110Client.zoomSticky) {
                 displacement *= (float) GhConfig.cameraZoomFactor;
                 horseThrow = (float) (displacement * GhConfig.cameraThrowZoomedFactor);
                 horseLoft = (float) (displacement * GhConfig.cameraLoftZoomedFactor);
@@ -99,12 +97,12 @@ public abstract class CameraMixin {
                 horseThrow = (float) (displacement * GhConfig.cameraThrowFactor);
                 horseLoft = (float) (displacement * GhConfig.cameraLoftFactor);
             }
-            if (Gh1218Client.overShoulderPosition%2 == 1) {
+            if (Gh12110Client.overShoulderPosition%2 == 1) {
                 horseThrow = 0;
-                if (Gh1218Client.overShoulderPosition == 3) {
+                if (Gh12110Client.overShoulderPosition == 3) {
                     horseLoft = 0;
                 }
-            } else if (Gh1218Client.overShoulderPosition == 2) {
+            } else if (Gh12110Client.overShoulderPosition == 2) {
                 horseThrow *= -1;
             }
 
@@ -140,13 +138,13 @@ public abstract class CameraMixin {
                     (float) MathHelper.atan2(
                             pointOfAim.x - this.pos.x,
                             pointOfAim.z - this.pos.z
-                    )  * -180f/3.1415926f,
+                            )  * -180f/3.1415926f,
 
                     (float) (MathHelper.atan2(
                             this.pos.y - pointOfAim.y,
                             MathHelper.sqrt((float) (MathHelper.square(this.pos.z - pointOfAim.z)
                                     + MathHelper.square(this.pos.x - pointOfAim.x)))
-                    ) * 180.0/3.1415926));
+                            ) * 180.0/3.1415926));
             ci.cancel();
         }
     }
