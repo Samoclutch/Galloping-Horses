@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "gh-1-21-11",
+  "version": "${version}",
+  "name": "Galloping Horses",
+  "description": "Changes to horse movement, specifically inspired by Battlefield 1 horse mechanics",
+  "authors": ["Samoclutch"],
+  "contact": {
+    "sources": "https://github.com/Samoclutch/Galloping-Horses",
+    "issues": "https://github.com/Samoclutch/Galloping-Horses/issues",
+    "email": "mailto:samoclutch@gmail.com?subject=Galloping%20Horses",
+    "homepage": "https://modrinth.com/mod/galloping-horses"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/gh-1-21-11/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "mods.samoclutch.gh12111.client.Gh12111DataGenerator"
+    ],
+    "client": [
+      "mods.samoclutch.gh12111.client.Gh12111Client"
+    ],
+    "main": [
+      "mods.samoclutch.gh12111.Gh12111"
+    ],
+    "modmenu": [
+      "mods.samoclutch.gh12111.client.GhConfig"
+    ]
+  },
+  "mixins": [
+    "gh-1-21-11.mixins.json",
+    {
+      "config": "gh-1-21-11.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
